@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 7550a0c1bcf564005b20a3064855fcf8
+timeCreated: 1510097136
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ball: {instanceID: 0}
+  - groundPrefab: {instanceID: 0}
+  - wave: {instanceID: 0}
+  - hurdlePrefab: {instanceID: 0}
+  - palmPrefab: {instanceID: 0}
+  - starteEdgePrefab: {instanceID: 0}
+  - endEdgePrefab: {fileID: 155628, guid: a7817dc9ad2423344b2e740174f38c36, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
