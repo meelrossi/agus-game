@@ -42,7 +42,7 @@ public class AgusManager : MonoBehaviour {
 			GameObject newGround = terrain [0];
 			Vector3 newPosition = terrain [terrain.Count - 1].transform.position;
 			newPosition.z = newPosition.z + size.z;
-
+			//tener un manager de terrains  q me da el proximo terrain a poner en la lista (los terrains que tiene el manager los tiene precreados)
 			int rand = (int) (Random.value * 100f);
 			if (rand < 10) {
 				newGround = Instantiate (endEdgePrefab, new Vector3 (0, 0, 0), Quaternion.identity);

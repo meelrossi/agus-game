@@ -1,15 +1,15 @@
 fileFormatVersion: 2
 guid: 7550a0c1bcf564005b20a3064855fcf8
-timeCreated: 1510097136
+timeCreated: 1510788395
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - ball: {instanceID: 0}
-  - groundPrefab: {instanceID: 0}
-  - wave: {instanceID: 0}
-  - hurdlePrefab: {instanceID: 0}
-  - palmPrefab: {instanceID: 0}
+  - groundPrefab: {fileID: 193874, guid: 1731ae0548ad2ba458c572ab6df7b58c, type: 2}
+  - wave: {fileID: 149962, guid: 58c25a420e6882147886b21744a277c7, type: 2}
+  - hurdlePrefab: {fileID: 174218, guid: 51ded5b93fd32a44a80d6b79ae6b9c0b, type: 2}
+  - palmPrefab: {fileID: 146148, guid: 3517325933a4f02419b118e4ac715d2e, type: 2}
   - starteEdgePrefab: {instanceID: 0}
   - endEdgePrefab: {fileID: 155628, guid: a7817dc9ad2423344b2e740174f38c36, type: 2}
   executionOrder: 0
