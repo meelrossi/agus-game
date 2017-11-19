@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 094c3209d3e254ead9dec53e3104a983
+timeCreated: 1511109474
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - smallBridgePrefab: {fileID: 147756, guid: be586f7a2d5b1934abf61a0f6b060ac7, type: 2}
+  - bridgePrefab: {fileID: 114594, guid: e895839d2d09f2549b9c3d67f7f376a9, type: 2}
+  - groundPrefab: {fileID: 193874, guid: 1731ae0548ad2ba458c572ab6df7b58c, type: 2}
+  - starteEdgePrefab: {fileID: 155628, guid: a7817dc9ad2423344b2e740174f38c36, type: 2}
+  - endEdgePrefab: {fileID: 180034, guid: 2ce83dba6e991a8469c95f70e0aba68e, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

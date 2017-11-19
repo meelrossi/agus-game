@@ -55,6 +55,7 @@
      <Compile Include="Assets\AgusManager.cs" />
      <Compile Include="Assets\BallScript.cs" />
      <Compile Include="Assets\GrassRoadRace\Script\CameraMove.cs" />
+     <Compile Include="Assets\TrackManager.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>

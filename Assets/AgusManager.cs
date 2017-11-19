@@ -9,13 +9,9 @@ public class AgusManager : MonoBehaviour {
 	public GameObject ball;
 	public List<GameObject> terrain;
 	public List<GameObject> obstacles;
-	public GameObject groundPrefab;
 	public GameObject wave;
 	public GameObject hurdlePrefab;
 	public GameObject palmPrefab;
-
-	public GameObject starteEdgePrefab;
-	public GameObject endEdgePrefab;
 
 	Vector3 size;
 
@@ -28,34 +24,27 @@ public class AgusManager : MonoBehaviour {
 	}
 
 	void Start () {
-		
-		Renderer[] renderer = groundPrefab.GetComponentsInChildren<Renderer> ();
-		size = renderer[1].bounds.size * 0.9f;
-		for (int i = -1; i <= 15; i++) {
-			terrain.Add (Instantiate (groundPrefab, new Vector3 (0, 0, size.z * i), Quaternion.identity));
-		}
+
 	}
 	
 	void Update () {
-		GameObject ground = terrain [4];
-		if (ball.transform.position.z > ground.transform.position.z) {
-			GameObject newGround = terrain [0];
-			Vector3 newPosition = terrain [terrain.Count - 1].transform.position;
-			newPosition.z = newPosition.z + size.z;
-			//tener un manager de terrains  q me da el proximo terrain a poner en la lista (los terrains que tiene el manager los tiene precreados)
-			int rand = (int) (Random.value * 100f);
-			if (rand < 10) {
-				newGround = Instantiate (endEdgePrefab, new Vector3 (0, 0, 0), Quaternion.identity);
-				newPosition.z += 10f;
-			}
 
-			newGround.transform.position = newPosition;
-			terrain.RemoveAt (0);
-			terrain.Insert (terrain.Count, newGround);
-			addObstacle (newPosition.z);
-			removeObstacles ();
+		float ballPosition = ball.transform.position.z;
+		TrackManager.instance.updateTrack (ballPosition);
 
-		}
+//		if (ball.transform.position.z > ground.transform.position.z) {
+//			GameObject newGround = terrain [0];
+//			Vector3 newPosition = terrain [terrain.Count - 1].transform.position;
+//			newPosition.z = newPosition.z + size.z;
+//			//tener un manager de terrains  q me da el proximo terrain a poner en la lista (los terrains que tiene el manager los tiene precreados)
+//
+//			newGround.transform.position = newPosition;
+//			terrain.RemoveAt (0);
+//			terrain.Insert (terrain.Count, newGround);
+//			addObstacle (newPosition.z);
+//			removeObstacles ();
+//
+//		}
 	}
 
 	void moveWave() {
@@ -89,4 +78,6 @@ public class AgusManager : MonoBehaviour {
 		}
 	
 	}
+
+
 }
