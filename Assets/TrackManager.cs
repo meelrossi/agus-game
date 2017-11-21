@@ -110,16 +110,19 @@ public class TrackManager : MonoBehaviour {
 
 	public void updateTrack(float ballPosition) {
 		GameObject ground = track [2];
-		GameObject nextGround = track [3];
-		if (ballPosition > ground.transform.position.z && !trackPassed) {
-			putNextTrack ();
+		if (ballPosition > ground.transform.position.z) {
 			returnTrackToPool ();
-			trackPassed = false;
-		} else if (ballPosition > nextGround.transform.position.z) {
-			trackPassed = true;
+			putNextTrack ();
 		}
 
 	}
+
+	private void putObstacles() {
+		GameObject lastTrack = track [track.Count - 1];
+
+			
+	}
+
 
 	private Vector3 getSize(string name) {
 		switch (name) 
@@ -141,9 +144,9 @@ public class TrackManager : MonoBehaviour {
 
 	private void putNextTrack() {
 		int prob = Random.Range (1, 100);
-		if (prob < 60) {
+		if (prob < 50) {
 			putGround ();
-		} else if (prob < 80) {
+		} else if (prob < 70) {
 			putGap ();
 		} else if (prob < 90) {
 			putBridge ();
@@ -195,7 +198,7 @@ public class TrackManager : MonoBehaviour {
 		startEdge.transform.position = new Vector3 (0, 0, endPosition);
 
 		GameObject smallBridge = getTrackFromPool (smallBridgePool);
-		float xPos = Random.Range (-1, 1) * 1.0f;
+		int xPos = Random.Range (-1, 1);
 		smallBridge.transform.position = new Vector3 (xPos, 0, endPosition + 2*startEdgeSize.z);
 
 		GameObject endEdge = getTrackFromPool (endEdgePool);

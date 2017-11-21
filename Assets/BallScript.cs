@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour {
 
+	private bool isMoving = false;
+	private int dir = 0;
+	private int destination = 0;
+	private int count = 0;
+
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (isMoving) {
+			movingAnimation ();
+		}
+
 		if (Input.GetKey ("up")) {
 			Vector3 vel = GetComponent<Rigidbody> ().velocity;
 			if (vel.z < 10f) {
@@ -19,18 +29,34 @@ public class BallScript : MonoBehaviour {
 		if (Input.GetKeyUp ("left")) {
 			Vector3 curr_pos = transform.position;
 			if (curr_pos.x > -1) {
-				this.transform.position = new Vector3 (curr_pos.x - 1, curr_pos.y, curr_pos.z);
+				this.dir = -1;
+				this.destination = (int) curr_pos.x - 1;
+				this.isMoving = true;
 			}
 		}
 		if (Input.GetKeyUp ("right")) {
 			Vector3 curr_pos = transform.position;
 			if (curr_pos.x < 1) {
-				this.transform.position = new Vector3 (curr_pos.x + 1, curr_pos.y, curr_pos.z);
+				this.dir = 1;
+				this.destination = (int) curr_pos.x + 1;
+				this.isMoving = true;
 			}
 		}
 
 		if (Input.GetKeyUp ("space")) {
 			GetComponent<Rigidbody> ().AddForce (Vector3.up * 500f);
 		} 
+	}
+
+	private void movingAnimation() {
+		Vector3 curr_pos = transform.position;
+		float delta = (float) (curr_pos.x + (dir * 0.1f));
+		this.transform.position = new Vector3 (delta, curr_pos.y, curr_pos.z);
+		if (count == 10) {
+			this.transform.position = new Vector3 (destination, curr_pos.y, curr_pos.z);
+			isMoving = false;
+			count = 0;
+		}
+		count++;
 	}
 }

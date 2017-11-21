@@ -44,3 +44,10 @@
 /Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/Assembly-CSharp.dll.mdb
 /Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/UnityEngine.UIAutomation.dll
+/Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/UnityEngine.GoogleAudioSpatializer.dll
+/Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/UnityEngine.SpatialTracking.dll
+/Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/UnityEngine.Purchasing.dll
+/Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/Unity.Cecil.dll
+/Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/Unity.Cecil.Pdb.dll
+/Users/amounier/Documents/ITBA/agus-game/Temp/bin/Debug/Unity.Cecil.Mdb.dll

@@ -28,23 +28,8 @@ public class AgusManager : MonoBehaviour {
 	}
 	
 	void Update () {
-
 		float ballPosition = ball.transform.position.z;
 		TrackManager.instance.updateTrack (ballPosition);
-
-//		if (ball.transform.position.z > ground.transform.position.z) {
-//			GameObject newGround = terrain [0];
-//			Vector3 newPosition = terrain [terrain.Count - 1].transform.position;
-//			newPosition.z = newPosition.z + size.z;
-//			//tener un manager de terrains  q me da el proximo terrain a poner en la lista (los terrains que tiene el manager los tiene precreados)
-//
-//			newGround.transform.position = newPosition;
-//			terrain.RemoveAt (0);
-//			terrain.Insert (terrain.Count, newGround);
-//			addObstacle (newPosition.z);
-//			removeObstacles ();
-//
-//		}
 	}
 
 	void moveWave() {
