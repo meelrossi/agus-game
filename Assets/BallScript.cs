@@ -22,8 +22,8 @@ public class BallScript : MonoBehaviour {
 
 		if (Input.GetKey ("up")) {
 			Vector3 vel = GetComponent<Rigidbody> ().velocity;
-			if (vel.z < 10f) {
-				GetComponent<Rigidbody> ().AddForce (Vector3.forward * 10f);
+			if (vel.z < 15f) {
+				GetComponent<Rigidbody> ().AddForce (Vector3.forward * 15f);
 			}
 		}
 		if (Input.GetKeyUp ("left")) {
@@ -44,7 +44,7 @@ public class BallScript : MonoBehaviour {
 		}
 
 		if (Input.GetKeyUp ("space")) {
-			GetComponent<Rigidbody> ().AddForce (Vector3.up * 500f);
+			GetComponent<Rigidbody> ().AddForce (Vector3.up * 1600f);
 		} 
 	}
 

@@ -6,17 +6,22 @@ public class TrackManager : MonoBehaviour {
 
 	public static TrackManager instance = null;
 
+	// Track prefabs
 	public GameObject smallBridgePrefab;
 	public GameObject bridgePrefab;
 	public GameObject groundPrefab;
 	public GameObject starteEdgePrefab;
 	public GameObject endEdgePrefab;
+	public GameObject groundIslandPrefab;
+
+	public GameObject wavePrefab;
 
 	private List<GameObject> groundPool = new List<GameObject>();
 	private List<GameObject> bridgePool = new List<GameObject>();
 	private List<GameObject> smallBridgePool = new List<GameObject>();
 	private List<GameObject> startEdgePool = new List<GameObject>();
 	private List<GameObject> endEdgePool = new List<GameObject>();
+	private List<GameObject> groundIslandPool = new List<GameObject>();
 
 	private Vector3 groundSize;
 	private Vector3 bridgeSize;
@@ -33,6 +38,7 @@ public class TrackManager : MonoBehaviour {
 		public static string GROUND = "ground";
 		public static string START_EDGE = "start_edge";
 		public static string END_EDGE = "end_edge";
+		public static string GROUND_ISLAND = "ground_island";
 	}
 
 	void Awake() {
@@ -67,8 +73,12 @@ public class TrackManager : MonoBehaviour {
 		
 	}
 
+	public List<GameObject> getTrack() {
+		return track;
+	}
+
 	private void generatePools() {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 10; i++) {
 			GameObject bridge = Instantiate (bridgePrefab, new Vector3 (0, 0, 0), Quaternion.identity);
 			bridge.name = TrackTag.BRIDGE;
 			bridge.SetActive (false);
@@ -88,16 +98,21 @@ public class TrackManager : MonoBehaviour {
 			endEdge.name = TrackTag.END_EDGE;
 			endEdge.SetActive(false);
 			endEdgePool.Add (endEdge);
+
+			GameObject groundIsland = Instantiate (groundIslandPrefab, new Vector3 (0, 0, 0), Quaternion.identity);
+			groundIsland.name = TrackTag.GROUND_ISLAND;
+			groundIsland.SetActive(false);
+			groundIslandPool.Add (groundIsland);
 		}
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 30; i++) {
 			GameObject ground = Instantiate (groundPrefab, new Vector3 (0, 0, 0), Quaternion.identity);
 			ground.name = TrackTag.GROUND;
 			ground.SetActive (false);
 			groundPool.Add (ground);
 		}
 	}
-
+		
 	private void generateStartTrack() {
 		for (int i = -1; i < 15; i++) {
 			GameObject ground = groundPool [0];
@@ -113,16 +128,18 @@ public class TrackManager : MonoBehaviour {
 		if (ballPosition > ground.transform.position.z) {
 			returnTrackToPool ();
 			putNextTrack ();
+			if (ballPosition > 20f) {
+				ObstaclesManager.instance.putObstacle ();
+			}
+			if (ballPosition > 200f) {
+				ObstaclesManager.instance.returnObstacleToPool ();
+			}
+
+			Vector3 currPos = wavePrefab.transform.position;
+			wavePrefab.transform.position = new Vector3 (currPos.x, currPos.y, currPos.z + ballPosition);
 		}
 
 	}
-
-	private void putObstacles() {
-		GameObject lastTrack = track [track.Count - 1];
-
-			
-	}
-
 
 	private Vector3 getSize(string name) {
 		switch (name) 
@@ -143,23 +160,29 @@ public class TrackManager : MonoBehaviour {
 	}
 
 	private void putNextTrack() {
-		int prob = Random.Range (1, 100);
-		if (prob < 50) {
+		int trackProb = Random.Range (1, 100);
+		int gIslandProb = Random.Range (1, 100);
+		if (trackProb < 50) {
 			putGround ();
-		} else if (prob < 70) {
+		} else if (trackProb < 70) {
 			putGap ();
-		} else if (prob < 90) {
+		} else if (trackProb < 90) {
 			putBridge ();
 		} else {
 			putSmallBridge ();
+		}
+
+		if (gIslandProb < 70) {
+			putGroundIsland ();
 		}
 	}
 
 	private void putGap() {
 		GameObject lastTrack = track [track.Count - 1];
-		float endPosition = lastTrack.transform.position.z + startEdgeSize.z;
 
 		GameObject startEdge = getTrackFromPool (startEdgePool);
+		float endPosition = lastTrack.transform.position.z + startEdgeSize.z;
+
 		startEdge.transform.position = new Vector3 (0, 0, endPosition);
 
 		GameObject endEdge = getTrackFromPool (endEdgePool);
@@ -172,7 +195,7 @@ public class TrackManager : MonoBehaviour {
 
 	private void putBridge() {
 		GameObject lastTrack = track [track.Count - 1];
-		float endPosition = lastTrack.transform.position.z + getSize(lastTrack.name).z;
+		float endPosition = lastTrack.transform.position.z + bridgeSize.z;
 
 		GameObject bridge = getTrackFromPool (bridgePool);
 		bridge.transform.position = new Vector3 (0, 0, endPosition);
@@ -182,7 +205,7 @@ public class TrackManager : MonoBehaviour {
 
 	private void putGround() {
 		GameObject lastTrack = track [track.Count - 1];
-		float endPosition = lastTrack.transform.position.z + getSize(lastTrack.name).z;
+		float endPosition = lastTrack.transform.position.z + groundSize.z;
 
 		GameObject ground = getTrackFromPool (groundPool);
 		ground.transform.position = new Vector3 (0, 0, endPosition);
@@ -209,6 +232,17 @@ public class TrackManager : MonoBehaviour {
 		track.Add (endEdge);
 	}
 
+	private void putGroundIsland() {
+		GameObject lastTrack = track [track.Count - 1];
+		float endPosition = lastTrack.transform.position.z;
+
+		GameObject groundIsland = getTrackFromPool (groundIslandPool);
+		int xPos = Random.value < 0.5f ? -3 : 3;
+		groundIsland.transform.position = new Vector3 (xPos, -1, endPosition);
+
+		track.Add (groundIsland);
+	}
+
 	private void returnTrackToPool() {
 		GameObject firstTrack = track [0];
 		track.RemoveAt (0);
@@ -228,6 +262,9 @@ public class TrackManager : MonoBehaviour {
 			break;
 		case "small_bridge":
 			smallBridgePool.Add (firstTrack);
+			break;
+		case "ground_island":
+			groundIslandPool.Add (firstTrack);
 			break;
 		default:
 			break;
