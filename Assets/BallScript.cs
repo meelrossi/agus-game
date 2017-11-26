@@ -44,15 +44,17 @@ public class BallScript : MonoBehaviour {
 		}
 
 		if (Input.GetKeyUp ("space")) {
+			if (transform.position.y > 0.5f)
+				return;
 			GetComponent<Rigidbody> ().AddForce (Vector3.up * 1200f);
 		} 
 	}
 
 	private void movingAnimation() {
 		Vector3 curr_pos = transform.position;
-		float delta = (float) (curr_pos.x + (dir * 0.1f));
+		float delta = (float) (curr_pos.x + (dir * 0.2f));
 		this.transform.position = new Vector3 (delta, curr_pos.y, curr_pos.z);
-		if (count == 10) {
+		if (count == 5) {
 			this.transform.position = new Vector3 (destination, curr_pos.y, curr_pos.z);
 			isMoving = false;
 			count = 0;

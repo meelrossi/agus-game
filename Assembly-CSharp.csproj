@@ -57,6 +57,8 @@
      <Compile Include="Assets\GrassRoadRace\Script\CameraMove.cs" />
      <Compile Include="Assets\ObstaclesManager.cs" />
      <Compile Include="Assets\TrackManager.cs" />
+     <None Include="Assets\Japanese Coin\Environment\HDR_Readme.txt" />
+     <None Include="Assets\Japanese Coin\hello there.txt" />
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
  </Reference>

@@ -10,6 +10,7 @@ GameObject:
   - component: {fileID: 406658}
   - component: {fileID: 3306658}
   - component: {fileID: 2306658}
+  - component: {fileID: 154577860923695110}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -82,3 +83,13 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 106658}
   m_IsPrefabParent: 1
+--- !u!154 &154577860923695110
+TerrainCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106658}
+  m_Material: {fileID: 13400000, guid: b707fcca53a5848dbb67547edf95d50f, type: 2}
+  m_Enabled: 1
+  m_TerrainData: {fileID: 0}
+  m_EnableTreeColliders: 1

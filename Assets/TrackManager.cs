@@ -124,21 +124,19 @@ public class TrackManager : MonoBehaviour {
 	}
 
 	public void updateTrack(float ballPosition) {
-		GameObject ground = track [2];
+		GameObject ground = track [3];
 		if (ballPosition > ground.transform.position.z) {
 			returnTrackToPool ();
 			putNextTrack ();
 			ObstaclesManager.instance.putObstacle ();
 
-			GameObject firstObstacle = ObstaclesManager.instance.getObstacles ()[2];
-			if (firstObstacle != null && ballPosition > firstObstacle.transform.position.z) {
+			GameObject obstacle = ObstaclesManager.instance.getObstacles ()[3];
+			if (obstacle != null && ballPosition > obstacle.transform.position.z) {
 				ObstaclesManager.instance.returnObstacleToPool ();
 			}
-
-			Vector3 currPos = wavePrefab.transform.position;
-			wavePrefab.transform.position = new Vector3 (currPos.x, currPos.y, ballPosition + 1000f);
 		}
-
+		Vector3 currPos = wavePrefab.transform.position;
+		wavePrefab.transform.position = new Vector3 (currPos.x, currPos.y, ballPosition + 1000f);
 	}
 
 	private Vector3 getSize(string name) {
