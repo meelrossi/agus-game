@@ -9,6 +9,9 @@ public class BallScript : MonoBehaviour {
 	private int destination = 0;
 	private int count = 0;
 
+	Vector3 savedVelocity;
+	Vector3 savedAngularVelocity;
+
 	void Start () {
 		
 	}
@@ -58,5 +61,20 @@ public class BallScript : MonoBehaviour {
 			count = 0;
 		}
 		count++;
+	}
+
+	public void PauseBall(bool paused) {
+		Rigidbody ball = GetComponent<Rigidbody> ();
+		if (paused) {
+			savedVelocity = ball.velocity;
+			savedAngularVelocity = ball.angularVelocity;
+			ball.isKinematic = true;
+		} else {
+			// un-paused
+			ball.isKinematic = false;
+			ball.velocity = savedVelocity;
+			ball.angularVelocity = savedAngularVelocity;
+			ball.WakeUp();
+		}
 	}
 }

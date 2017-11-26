@@ -15,6 +15,14 @@ public class AgusManager : MonoBehaviour {
 
 	Vector3 size;
 
+	//Pause Game
+	public GameObject pauseButton;
+	public GameObject pausePanel;
+	bool paused = false;
+	Vector3 savedVelocity;
+	Vector3 savedAngularVelocity;
+	public BallScript ballScript;
+
 	void Awake() {
 		if (instance == null) {
 			instance = this;
@@ -24,7 +32,7 @@ public class AgusManager : MonoBehaviour {
 	}
 
 	void Start () {
-
+		
 	}
 	
 	void Update () {
@@ -62,6 +70,16 @@ public class AgusManager : MonoBehaviour {
 			}
 		}
 	
+	}
+
+	public void PauseGame () {
+		paused = !paused;
+		if (paused) {
+			pausePanel.SetActive (true);
+		} else {
+			pausePanel.SetActive (false);
+		}
+		ballScript.PauseBall (paused);
 	}
 
 
