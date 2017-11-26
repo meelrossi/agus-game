@@ -128,15 +128,15 @@ public class TrackManager : MonoBehaviour {
 		if (ballPosition > ground.transform.position.z) {
 			returnTrackToPool ();
 			putNextTrack ();
-			if (ballPosition > 20f) {
-				ObstaclesManager.instance.putObstacle ();
-			}
-			if (ballPosition > 200f) {
+			ObstaclesManager.instance.putObstacle ();
+
+			GameObject firstObstacle = ObstaclesManager.instance.getObstacles ()[2];
+			if (firstObstacle != null && ballPosition > firstObstacle.transform.position.z) {
 				ObstaclesManager.instance.returnObstacleToPool ();
 			}
 
 			Vector3 currPos = wavePrefab.transform.position;
-			wavePrefab.transform.position = new Vector3 (currPos.x, currPos.y, currPos.z + ballPosition);
+			wavePrefab.transform.position = new Vector3 (currPos.x, currPos.y, ballPosition + 1000f);
 		}
 
 	}

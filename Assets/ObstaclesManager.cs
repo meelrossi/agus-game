@@ -5,6 +5,12 @@ using UnityEngine;
 public class ObstaclesManager : MonoBehaviour {
 
 	public static ObstaclesManager instance = null;
+	// hurdle1, hurdle2, hurdle3, palm, grass. 
+	private static List<int> easyProb = new List<int>(new int[] {25, 50, 65, 75, 100});
+	private static List<int> mediumProb = new List<int>(new int[] { 20, 40, 60, 80, 100 });
+	private static List<int> hardProb = new List<int>(new int[] { 10, 30, 60, 90, 100 });
+
+	private List<int> obsProb;
 
 	// Obstacles prefabs
 	public GameObject hurdle1Prefab;
@@ -32,6 +38,7 @@ public class ObstaclesManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		generatePools ();
+		obsProb = easyProb;
 	}
 
 	void Awake() {
@@ -75,6 +82,10 @@ public class ObstaclesManager : MonoBehaviour {
 		GameObject firstObstacle = obstacles [0];
 		obstacles.RemoveAt (0);
 		returnObstacleToPool (firstObstacle);
+	}
+
+	public List<GameObject> getObstacles() {
+		return obstacles;
 	}
 
 	private void returnObstacleToPool(GameObject obstalce) {
@@ -129,13 +140,13 @@ public class ObstaclesManager : MonoBehaviour {
 	private GameObject getRandomObstacle() {
 		int prob = Random.Range (1, 100);
 
-		if (prob < 20) {
+		if (prob < obsProb[0]) {
 			return getObstacleFromPool (hurdle1Pool);
-		} else if (prob < 40) {
+		} else if (prob < obsProb[1]) {
 			return getObstacleFromPool (hurdle2Pool);
-		} else if (prob < 60) {
+		} else if (prob < obsProb[2]) {
 			return getObstacleFromPool (hurdle3Pool);
-		} else if (prob < 80) {
+		} else if (prob < obsProb[3]) {
 			return getObstacleFromPool (palmPool);
 		} else {
 			return getObstacleFromPool (grassPool);

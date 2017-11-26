@@ -44,7 +44,7 @@ public class BallScript : MonoBehaviour {
 		}
 
 		if (Input.GetKeyUp ("space")) {
-			GetComponent<Rigidbody> ().AddForce (Vector3.up * 1600f);
+			GetComponent<Rigidbody> ().AddForce (Vector3.up * 1200f);
 		} 
 	}
 
