@@ -2,10 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/TrackManager.cs">
     <Files>
-      <File FileName="Assets/TrackManager.cs" Line="134" Column="25" />
+      <File FileName="Assets/ObstaclesManager.cs" Line="11" Column="86" />
+      <File FileName="Assets/TrackManager.cs" Line="133" Column="69" />
       <File FileName="Assets/AgusManager.cs" Line="14" Column="31" />
-      <File FileName="Assets/BallScript.cs" Line="25" Column="18" />
-      <File FileName="Assets/ObstaclesManager.cs" Line="77" Column="40" />
+      <File FileName="Assets/BallScript.cs" Line="47" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

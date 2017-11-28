@@ -13,6 +13,7 @@ public class TrackManager : MonoBehaviour {
 	public GameObject starteEdgePrefab;
 	public GameObject endEdgePrefab;
 	public GameObject groundIslandPrefab;
+	public GameObject coinPrefab;
 
 	public GameObject wavePrefab;
 
@@ -29,7 +30,8 @@ public class TrackManager : MonoBehaviour {
 	private Vector3 startEdgeSize;
 	private Vector3 endEdgeSize;
 
-	private List<GameObject> track = new List<GameObject>();
+	private List<GameObject> track = new List<GameObject> ();
+	private List<GameObject> coins = new List<GameObject> ();
 	private bool trackPassed = false;
 
 	public class TrackTag	{
@@ -126,17 +128,49 @@ public class TrackManager : MonoBehaviour {
 	public void updateTrack(float ballPosition) {
 		GameObject ground = track [3];
 		if (ballPosition > ground.transform.position.z) {
-			returnTrackToPool ();
+			returnTrackToPool (ballPosition);
 			putNextTrack ();
 			ObstaclesManager.instance.putObstacle ();
 
 			GameObject obstacle = ObstaclesManager.instance.getObstacles ()[3];
 			if (obstacle != null && ballPosition > obstacle.transform.position.z) {
-				ObstaclesManager.instance.returnObstacleToPool ();
+				ObstaclesManager.instance.returnObstacleToPool (ballPosition);
 			}
+
+			putCoinsOnTrack ();
+			removeUncollectedCoins (ballPosition);
 		}
 		Vector3 currPos = wavePrefab.transform.position;
 		wavePrefab.transform.position = new Vector3 (currPos.x, currPos.y, ballPosition + 1000f);
+
+	}
+
+	private void putCoinsOnTrack() {
+
+		GameObject lastTrack = track [track.Count - 1];
+		GameObject beforeLastTrack = track [track.Count - 2];
+		if (beforeLastTrack.name.Equals(TrackTag.END_EDGE) || beforeLastTrack.name.Equals(TrackTag.START_EDGE) ||
+			lastTrack.name.Equals(TrackTag.END_EDGE) || lastTrack.name.Equals(TrackTag.START_EDGE)) {
+			return;
+		}
+		int xPos = Random.Range (-1, 2);
+		for (int i = 1; i < 5; i++) {
+			GameObject coin = Instantiate (coinPrefab, new Vector3 (xPos, 0.4f, lastTrack.transform.position.z - (i*1.5f)), Quaternion.identity);
+			coin.transform.Rotate (new Vector3 (90, 0, 0));
+			coin.transform.localScale = new Vector3 (2, 2, 2);
+			coins.Add (coin);
+		}
+
+	}
+
+	private void removeUncollectedCoins(float ballPosition) {
+		for(int i = 0; i < coins.Count ; i++) {
+			GameObject c = coins [i];
+			if (c.transform.position.z < ballPosition) {
+				coins.RemoveAt (i);
+				Destroy (c);
+			} 
+		}
 	}
 
 	private Vector3 getSize(string name) {
@@ -158,8 +192,8 @@ public class TrackManager : MonoBehaviour {
 	}
 
 	private void putNextTrack() {
-		int trackProb = Random.Range (1, 100);
-		int gIslandProb = Random.Range (1, 100);
+		int trackProb = Random.Range (1, 101);
+		int gIslandProb = Random.Range (1, 101);
 		if (trackProb < 50) {
 			putGround ();
 		} else if (trackProb < 70) {
@@ -219,7 +253,7 @@ public class TrackManager : MonoBehaviour {
 		startEdge.transform.position = new Vector3 (0, 0, endPosition);
 
 		GameObject smallBridge = getTrackFromPool (smallBridgePool);
-		int xPos = Random.Range (-1, 1);
+		int xPos = Random.Range (-1, 2);
 		smallBridge.transform.position = new Vector3 (xPos, 0, endPosition + 2*startEdgeSize.z);
 
 		GameObject endEdge = getTrackFromPool (endEdgePool);
@@ -241,31 +275,36 @@ public class TrackManager : MonoBehaviour {
 		track.Add (groundIsland);
 	}
 
-	private void returnTrackToPool() {
-		GameObject firstTrack = track [0];
-		track.RemoveAt (0);
-		firstTrack.SetActive (false);
-		switch (firstTrack.name) {
-		case "bridge":
-			bridgePool.Add (firstTrack);
-			break;
-		case "ground":
-			groundPool.Add (firstTrack);
-			break;
-		case "start_edge":
-			startEdgePool.Add (firstTrack);
-			break;
-		case "end_edge":
-			endEdgePool.Add (firstTrack);
-			break;
-		case "small_bridge":
-			smallBridgePool.Add (firstTrack);
-			break;
-		case "ground_island":
-			groundIslandPool.Add (firstTrack);
-			break;
-		default:
-			break;
+	private void returnTrackToPool(float ballPosition) {
+		for (int i = 0; i < track.Count; i++) {
+			GameObject firstTrack = track [0];
+			if (firstTrack.transform.position.z > ballPosition - 10f) {
+				return;
+			}
+			track.RemoveAt (0);
+			firstTrack.SetActive (false);
+			switch (firstTrack.name) {
+			case "bridge":
+				bridgePool.Add (firstTrack);
+				break;
+			case "ground":
+				groundPool.Add (firstTrack);
+				break;
+			case "start_edge":
+				startEdgePool.Add (firstTrack);
+				break;
+			case "end_edge":
+				endEdgePool.Add (firstTrack);
+				break;
+			case "small_bridge":
+				smallBridgePool.Add (firstTrack);
+				break;
+			case "ground_island":
+				groundIslandPool.Add (firstTrack);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 

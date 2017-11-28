@@ -22,7 +22,7 @@ public class BallScript : MonoBehaviour {
 
 		if (Input.GetKey ("up")) {
 			Vector3 vel = GetComponent<Rigidbody> ().velocity;
-			if (vel.z < 15f) {
+			if (vel.z < 10f) {
 				GetComponent<Rigidbody> ().AddForce (Vector3.forward * 15f);
 			}
 		}
@@ -61,4 +61,5 @@ public class BallScript : MonoBehaviour {
 		}
 		count++;
 	}
+
 }

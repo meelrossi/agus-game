@@ -78,10 +78,15 @@ public class ObstaclesManager : MonoBehaviour {
 		}
 	}
 
-	public void returnObstacleToPool() {
-		GameObject firstObstacle = obstacles [0];
-		obstacles.RemoveAt (0);
-		returnObstacleToPool (firstObstacle);
+	public void returnObstacleToPool(float ballPosition) {
+		for (int i = 0; i < obstacles.Count; i++) {
+			GameObject firstObstacle = obstacles [0];
+			if (firstObstacle.transform.position.z > ballPosition - 10f) {
+				return;
+			}
+			obstacles.RemoveAt (0);
+			returnObstacleToPool (firstObstacle);
+		}
 	}
 
 	public List<GameObject> getObstacles() {
@@ -125,7 +130,7 @@ public class ObstaclesManager : MonoBehaviour {
 			return;
 		}
 
-		int xPos = Random.Range (-1, 1);
+		int xPos = Random.Range (-1, 2);
 		obstacle.transform.position = new Vector3 (xPos, 0, lastTrack.transform.position.z);
 		obstacles.Add (obstacle);
 	}
@@ -138,7 +143,7 @@ public class ObstaclesManager : MonoBehaviour {
 	}
 
 	private GameObject getRandomObstacle() {
-		int prob = Random.Range (1, 100);
+		int prob = Random.Range (1, 101);
 
 		if (prob < obsProb[0]) {
 			return getObstacleFromPool (hurdle1Pool);

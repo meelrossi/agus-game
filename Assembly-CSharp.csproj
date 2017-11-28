@@ -54,6 +54,7 @@
      <Compile Include="Assets\AgusCamera.cs" />
      <Compile Include="Assets\AgusManager.cs" />
      <Compile Include="Assets\BallScript.cs" />
+     <Compile Include="Assets\CoinScript.cs" />
      <Compile Include="Assets\GrassRoadRace\Script\CameraMove.cs" />
      <Compile Include="Assets\ObstaclesManager.cs" />
      <Compile Include="Assets\TrackManager.cs" />
