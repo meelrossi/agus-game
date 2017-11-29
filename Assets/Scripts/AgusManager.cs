@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AgusManager : MonoBehaviour {
 
@@ -15,7 +16,9 @@ public class AgusManager : MonoBehaviour {
 	public GameObject pausePanel;
 	public GameObject gameOverPanel;
 
+	public Text scoreText;
 	int score = 0;
+	public Text metersText;
 	float meters = 0;
 
 	bool paused = false;
@@ -72,7 +75,13 @@ public class AgusManager : MonoBehaviour {
 	}
 
 	public void GameOver() {
+		StartCoroutine (gameOverRoutine());
+	}
+
+	IEnumerator gameOverRoutine() {
+		ball.GetComponent<Animation>().Play();
 		ball.PauseBall (true);
+		yield return new WaitForSeconds (1.5f);
 		gameOverPanel.SetActive (true);
 	}
 
@@ -95,5 +104,10 @@ public class AgusManager : MonoBehaviour {
 		TrackManager.instance.restartGame ();
 		score = 0;
 		meters = 0;
+	}
+
+	public void addScore(int s) {
+		score += s;
+		scoreText.text = score + "";
 	}
 }

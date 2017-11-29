@@ -10,9 +10,10 @@ public class BallScript : MonoBehaviour {
 	private int count = 0;
 	Vector3 savedVelocity;
 	Vector3 savedAngularVelocity;
+	public AudioSource moveSound;
 
 	void Start () {
-		
+		moveSound = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -34,6 +35,7 @@ public class BallScript : MonoBehaviour {
 				this.dir = -1;
 				this.destination = (int) curr_pos.x - 1;
 				this.isMoving = true;
+				moveSound.Play ();
 			}
 		}
 		if (Input.GetKeyUp ("right")) {
@@ -42,6 +44,7 @@ public class BallScript : MonoBehaviour {
 				this.dir = 1;
 				this.destination = (int) curr_pos.x + 1;
 				this.isMoving = true;
+				moveSound.Play ();
 			}
 		}
 

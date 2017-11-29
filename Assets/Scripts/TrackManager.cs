@@ -166,9 +166,11 @@ public class TrackManager : MonoBehaviour {
 	private void removeUncollectedCoins(float ballPosition) {
 		for(int i = 0; i < coins.Count ; i++) {
 			GameObject c = coins [i];
-			if (c.transform.position.z < ballPosition) {
-				coins.RemoveAt (i);
+			if (c == null) {
 				Destroy (c);
+				coins.RemoveAt (i);
+			} else if (c.transform.position.z < ballPosition) {
+				coins.RemoveAt (i);
 			} 
 		}
 	}
