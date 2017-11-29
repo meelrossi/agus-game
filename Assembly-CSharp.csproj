@@ -51,13 +51,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AgusCamera.cs" />
-     <Compile Include="Assets\AgusManager.cs" />
-     <Compile Include="Assets\BallScript.cs" />
      <Compile Include="Assets\CoinScript.cs" />
      <Compile Include="Assets\GrassRoadRace\Script\CameraMove.cs" />
-     <Compile Include="Assets\ObstaclesManager.cs" />
-     <Compile Include="Assets\TrackManager.cs" />
+     <Compile Include="Assets\Scripts\AgusCamera.cs" />
+     <Compile Include="Assets\Scripts\AgusManager.cs" />
+     <Compile Include="Assets\Scripts\BallScript.cs" />
+     <Compile Include="Assets\Scripts\ChangeScene.cs" />
+     <Compile Include="Assets\Scripts\ObstacleScript.cs" />
+     <Compile Include="Assets\Scripts\ObstaclesManager.cs" />
+     <Compile Include="Assets\Scripts\TrackManager.cs" />
      <None Include="Assets\Japanese Coin\Environment\HDR_Readme.txt" />
      <None Include="Assets\Japanese Coin\hello there.txt" />
  <Reference Include="UnityEngine.UIAutomation">
